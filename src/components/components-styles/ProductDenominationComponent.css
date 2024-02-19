@@ -1,0 +1,10 @@
+
+
+  @media (max-width: 576px) {
+    #denominationTable{
+      thead>tr>th {
+        min-width: 105px !important;
+      }
+    }
+  }
+

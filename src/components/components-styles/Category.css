@@ -1,0 +1,40 @@
+
+.category-container{
+    position: relative;
+    top: -80px;
+}
+
+
+.category-cols{
+    scrollbar-width: thin;
+    scrollbar-color: #183d83 #97cede;
+    scrollbar-gutter: stable both-edges;
+    
+}
+
+
+
+.category-card{
+    border-color: #55acee;
+    min-height: 140px;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px 10px;
+    background: #ffffff;
+    border-radius: 5%;
+    border-bottom: 2px solid #55acee;
+}
+.category-card img{
+    height: 100%;
+    width: 100%;   
+    object-fit: cover;
+    /* border: 1px solid #183d83; */
+    /* border-radius: 50%; */
+}
+
+.category-card p{
+    text-align: center;
+    font-size: 18px;
+}

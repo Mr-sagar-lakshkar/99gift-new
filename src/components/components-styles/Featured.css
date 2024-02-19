@@ -1,0 +1,15 @@
+.card-bedge{
+    position: absolute;
+    top: -2px;
+    right: 0;
+}
+
+.card-bedge>.badge{
+    width: 8rem;
+    height: 30px;
+    font-size: 16px;
+}
+
+.card-title{
+    height: 40px;
+}

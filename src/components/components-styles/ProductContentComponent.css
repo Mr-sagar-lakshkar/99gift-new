@@ -1,0 +1,20 @@
+.ProductContentComponent{
+    font-family: math;
+}
+
+.product-para>p{
+    font-family: math;
+    font-size: 18px;
+}
+
+
+.product-bedge{
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 2px;
+    border-left: 3px solid #1a3871;
+    background: #239ab2;
+    color: #fff;
+}
+
+
