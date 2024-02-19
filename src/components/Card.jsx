@@ -12,7 +12,6 @@ const Card = ({ title, discount, handleFun, item, image, keyId }) => {
     const dispatch = useDispatch();
     
     const fetchProduct = (id)=>{
-        console.log(id)
         dispatch(fetchProductDetail(id))
     }
 

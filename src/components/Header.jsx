@@ -30,8 +30,8 @@ function Header() {
               </li>
             </ul>
 
-            <button type="button" className="btn btn-outline-primary border border-0">Login</button>
-            <button type="button" className="btn btn-primary">Sign Up</button>
+        <Link to={'./login'}> <button type="button" className="btn btn-outline-primary border border-0">Login</button> </Link>
+        <Link to={'./login'}> <button type="button" className="btn btn-primary">Sign Up</button> </Link>
 
           </div>
         </div>

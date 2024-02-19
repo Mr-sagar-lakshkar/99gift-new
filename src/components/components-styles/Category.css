@@ -17,7 +17,7 @@
 .category-card{
     border-color: #55acee;
     min-height: 140px;
-    min-width: 120px;
+    min-width: 140px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,16 +25,16 @@
     background: #ffffff;
     border-radius: 5%;
     border-bottom: 2px solid #55acee;
+    overflow: hidden;
 }
 .category-card img{
-    height: 100%;
-    width: 100%;   
-    object-fit: cover;
-    /* border: 1px solid #183d83; */
-    /* border-radius: 50%; */
+    height: 120px;
+    width: 100%;
+    object-fit: contain;
 }
 
 .category-card p{
     text-align: center;
-    font-size: 18px;
+    font-size: 11px;
+    font-family: cursive;
 }

@@ -4,6 +4,8 @@ import FeatureReducer from "./FesturedSlice";
 import cartReducer from './CartSlice';
 import TopFiveProductsReducer from './TopFiveSlice';
 import ProductDetailReducer from "./ProductDetailSlice";
+import CategoryReducer from "./CategorySlice";
+import CategoryProductReducer from "./CategoryProductSlice";
 
 const store = configureStore({
     reducer:{
@@ -12,6 +14,8 @@ const store = configureStore({
         featuredGift:FeatureReducer,
         topfivePropducts:TopFiveProductsReducer,
         productdetails:ProductDetailReducer,
+        productCategory: CategoryReducer,
+        categoryProducts :CategoryProductReducer,
     }
 });
 
