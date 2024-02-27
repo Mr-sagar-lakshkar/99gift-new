@@ -1,4 +1,17 @@
 .card-title{
-    font-size: 18px;
-    font-family: system-ui;
+    font-size: min(5vw, 14px); 
+    /* font-family: system-ui; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2; /* Number of lines to show before ellipsis */
+    width: 100%;
+}
+
+.voucher-card .card-bedge{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+   
 }

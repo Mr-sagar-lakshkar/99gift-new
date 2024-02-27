@@ -7,28 +7,27 @@ import { fetchProductDetail } from "../actions";
 import ProductImageComponent from "../components/ProductImageComponent";
 import ProductContentComponent from "../components/ProductContentComponent";
 import Header from "../components/Header";
-import ProductDenominationComponent from "../components/ProductDenominationComponent";
+import ProductDenominationComponent from "../components/CustomDenoComponent";
 import Card from "../components/Card";
-import OrderPayComponent from "../components/OrderPayComponent";
+import ProductDenominatinDefault from "../components/ProductDenominatinDefault";
 
 function ProductDetailPage() {
+  // debugger
   const dispatch = useDispatch();
   let { id: productId } = useParams();
-
-  const[totalAmt,setTotalAmt] = useState(0);
-  const[orderAmount,setorderAmount] = useState(0);
-  const[orderSaveMoney,setOrderSaveMoney] = useState(0)
-  const[orderPaidMoney,setOrderPaidMoney] = useState(0)
-
   const ProductDetail = useSelector((state) => state.ProductDetailReducer);
   const product = ProductDetail?.products;
   const likeData = product?.like;
+  const productDenomination = product?.denomination;
 
-  let ProductDenominationComponentProps = {
-    min_price: "",
-    max_price: "",
-    percentage: "",
+  // console.log("productDenomination =>", productDenomination);
+  // console.log('complete api Data => ',ProductDetail)
+  let customDenomination = {
+    min_price: 0,
+    max_price: 0,
+    percentage: 0,
   };
+  let defaultDenomination = [];
 
   useEffect(() => {
     if (productId) {
@@ -39,43 +38,37 @@ function ProductDetailPage() {
   const getProductList = async (id = 0) => {
     let data = await getProductDetail(id);
 
-  
-
     if (data?.data) {
       dispatch(fetchProductDetail(data?.data));
     }
   };
 
   // check Denomination is available or not
-  const validateDenomination = (denomination) => {
-    if (denomination) {
-      if (!denomination.length) {
-        // show custom deomination range and functionality.
-        ProductDenominationComponentProps = {
-          min_price: product.min_price,
-          max_price: product.max_price,
-          percentage: product.discount,
-        };
-        return true;
-      } else {
-        ProductDenominationComponentProps = {
-          min_price: product.min_price,
-          max_price: product.max_price,
-          percentage: product.discount,
-        };
-        return true;
-      }
+  const checkDenomination = (denomination) => {
+    if (!denomination?.length) {
+      console.log(!denomination?.length);
+      customDenomination = {
+        min_price: product?.min_price,
+        max_price: product?.max_price,
+        percentage: product?.percentage,
+      };
+      return true;
     }
     return false;
   };
 
-  // function ShowDenominationTable () {
-  //   ProductDenominationComponentProps = {
-  //     min_price: product.min_price,
-  //     max_price: product.max_price,
-  //     percentage: product.discount,
-  //   };
-  // }
+  const defaultDenominationCheck = (denomination) => {
+    if (denomination?.length) {
+      defaultDenomination = [ {
+        amount:denomination?.amount,
+        min_price: product?.min_price,
+        max_price: product?.max_price,
+        percentage: product?.percentage,
+      }];
+      return true;
+    }
+    return false;
+  };
 
   return (
     <>
@@ -104,30 +97,19 @@ function ProductDetailPage() {
             style={{ minHeight: "40vh" }}
           >
             <div className="col-12 col-md-10 col-lg-6 ">
-              {validateDenomination(product?.denomination) && (
+              {/* {checkDenomination(product?.denomination) && (
                 <ProductDenominationComponent
-                  denominationDatNotAvailable={
-                    ProductDenominationComponentProps
-                  }
-                  denominations={
-                    product?.denomination ? product?.denomination : []
-                  }
-                  discount={product?.discount ? product?.discount : 0}
-                  setorderAmount = {setorderAmount}
-                  setOrderPaidMoney={setOrderPaidMoney}
-                  setOrderSaveMoney={setOrderSaveMoney}
+                  denominationDatNotAvailable={customDenomination}
                 />
-              )}
+              )} */}
             </div>
 
             <div className="col-12 col-md-10 col-lg-6 ">
-              <OrderPayComponent 
-                discount={product?.discount ? product?.discount : 0} 
-                totalAmount={orderAmount} 
-                orderPaidMoney={orderPaidMoney}
-                orderSaveMoney={orderSaveMoney}
-                
+              {defaultDenominationCheck(product?.denomination) && (
+                <ProductDenominatinDefault
+                  denominationData={defaultDenomination}
                 />
+              )}
             </div>
           </div>
 

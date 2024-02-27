@@ -11,16 +11,13 @@ import Card from './Card';
 const FeatureComponents = () => {
 
     const dispatch = useDispatch();
-    const { data, status } = useSelector((state) => state.featuredGift);
-    const productsData = data.data;
-
+    const { data : {data : productsData}, status } = useSelector((state) => state.featuredGift);
+   
     useEffect(() => {
         dispatch(fetchProducts())
-    }, []);
+    }, [dispatch]);
 
-    const handleAdd = (product) => {
-        dispatch(add(product));
-    }
+    
 
     if (status === STATUSES.LOADING) {
         return (
@@ -33,18 +30,21 @@ const FeatureComponents = () => {
     }
 
     return (
-        <div className='container-fluid mb-5 bg-light bg-gradient'>
+        <div className='container-fluid mb-5 bg-light shadow-sm rounded-3'>
             <div className="row">
                 <div className="col-12">
-                    <h3 className='display-4 text-center my-5 text-uppercase'>Featured Gift Vouchers</h3>
-                </div>
-                <div className="col-12 d-flex flex-row overflow-x-scroll">
-                    {productsData && productsData.map((item, index) => (
-                        <Card key={nanoid()} title={item.title} discount={item.discount} handleFun={handleAdd} item={item} image={item.image} keyId={item.id} />
-                    ))}
+                    <h4 className='display-5 text-center my-5 text-uppercase fw-bold'>Featured Gift Vouchers</h4>
                 </div>
             </div>
+            <div className="row d-flex flex-row productRow">
+                {productsData && productsData.map((item, index) => (
+                    <div className="col-12 col-sm-4 col-md-4 col-lg-3" key={index}>
+                        <Card key={nanoid()} title={item.title} discount={item.discount} item={item} image={item.image} keyId={item.id} />
+                    </div>
+                ))}
+            </div>
         </div>
+
     );
 
 }

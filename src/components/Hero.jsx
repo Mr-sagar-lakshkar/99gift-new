@@ -1,34 +1,39 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSlides, STATUSES } from '../store/SlideSlice';
+import { fetchAllSlides, fetchApi } from '../api';
+import { fetchSlides } from '../actions';
+import { FETCH_SLIDES } from '../actionTypes';
+import LoadingComponent from './LoadingComponent';
 
-const Hero = () => {
+export default function Hero() {
   const dispatch = useDispatch();
-  const { data: slideData, status } = useSelector(state => state.slides)
+  const [loading, setLoading] = useState(true)
+  const sliderData = useSelector(state => state.slideReducer);
+  const products = sliderData?.products;
+
   useEffect(() => {
-    dispatch(fetchSlides())
+    getSliders();
   }, []);
 
-
-  if (status === STATUSES.LOADING) {
-    return (
-        <div className="col-12 d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
-        <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden text-center">Loading...</span>
-        </div>
-    </div>        
-    )
-}
+  const getSliders = async () => {
+    let data = await fetchAllSlides();
+    if (data?.data) {
+      dispatch(fetchSlides(data?.data));
+      setLoading(false)
+    }
+  };
 
   return (
     <div className='container-fluid mt-5'>
       <div id="carouselExample" className="carousel slide border border-0 rounded rounded-3 shadow shadow-lg">
         <div className="carousel-inner rounded rounded-3">
-          {slideData.data && slideData.data.map((item, index) => (
+          {products && (products.map((item, index) => (
             <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
               <img src={item.image} className="d-block w-100" alt={item.title} />
             </div>
-          ))}
+          )))}
+
+          {loading && <LoadingComponent />}
 
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -43,5 +48,3 @@ const Hero = () => {
     </div>
   )
 }
-
-export default Hero 

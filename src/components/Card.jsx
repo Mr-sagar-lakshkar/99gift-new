@@ -1,47 +1,50 @@
-import React from 'react'
-import './components-styles/Card.css'
-import { nanoid } from 'nanoid'
-import { Link } from 'react-router-dom';
-import { useDispatch} from 'react-redux';
-import { fetchProductDetail} from '../store/ProductDetailSlice';
-import {add,remove} from '../store/CartSlice';
+import React, { useState } from "react";
+import { nanoid } from "nanoid";
+import { Link } from "react-router-dom";
+import img from "../../src/new_logo.png";
 
-const Card = ({ title, discount, handleFun, item, image, keyId }) => {
+import "./components-styles/Card.css";
 
-   
-    const dispatch = useDispatch();
-    
-    const fetchProduct = (id)=>{
-        dispatch(fetchProductDetail(id))
-    }
+const Card = ({ title, discount, item, image }) => {
+  const nanoKey = nanoid();
+  // return (
+  //   <div
+  //     key={nanoKey}
+  //     className="voucher-card rounded mx-md-3 mx-2 mb-5 overflow-hidden position-relative d-flex justify-content-center flex-column align-items-center"
+  //   >
+  //     <Link to={`/products/${encodeURIComponent(title)}/${item?.id}`}>
+  //       <img src={item.image} className="img-fluid w-100" alt={title} />
+  //       <div className="discount text-dark fw-bold">
+  //         Discount: {`${item.discount}`}%
+  //       </div>
 
-    const handleAdd = (product) => {
-        dispatch(add(product));
-    }
+  //       <div className="d-block card-title px-3 overflow-hidden">
+  //         <p
+  //           className="card-title text-dark"
+  //           style={{ textDecoration: "none" }}
+  //         >
+  //           {title}
+  //         </p>
+  //       </div>
+  //     </Link>
+  //   </div>
+  // );
 
+      return (
+          <div key={nanoKey} className="voucher-card rounded mx-md-3 mx-2 mb-5 overflow-hidden position-relative d-flex justify-content-center flex-column" >
+              <Link to={`/products/${encodeURIComponent(title)}/${item?.id}`} >
+                  <img src={image} className="img-fluid w-100 pt-0 rounded shadow-sm border border-1 object-fit-cover" alt={title} style={{ height: "190px" }} />
 
-    return (
-        <div key={nanoid()} className="voucher-card mx-md-3 mx-2 mb-5 overflow-hidden position-relative d-flex justify-content-center flex-column" style={{ minWidth: "19rem", height: "20rem" }} >
-            <Link to={`/products/${encodeURIComponent(title)}`} onClick={() => fetchProduct(item.id)}>
-                <img src={image} className="img-fluid w-100 pt-0 rounded shadow-sm border broder-1" alt={title} style={{ height: "190px" }} />
+                  <div className='d-block px-1 mt-3 mb-3 card-title px-3 overflow-hidden'>
+                      <p className='card-title text-dark' style={{ textDecoration: "none" }}>{title.slice(0, 45)}...</p>
+                  </div>
+              </Link>
 
-                <div className='d-block px-1 mt-3 mb-3 card-title '>
-                    <p className='card-title d-block text-dark' style={{ textDecoration: "none" }}>{title}</p>
-                </div>
-            </Link>
+              <div className='card-bedge pt-0 pb-2 '>
+                  <span className="badge rounded rounded-0 text-bg-danger float-end w-100">{discount}% Discount</span>
+              </div>
+          </div>
+  )
+};
 
-            <div className='card-bedge pt-0 '>
-                <span className="badge rounded rounded-0 text-bg-warning float-end">{discount}% Discount</span>
-            </div>
-
-            <div className="mt-1 py-2 d-flex justify-content-between ">
-                <button className='btn bg-info-subtle d-inline-block' onClick={() => handleFun(item)}>Add to Cart <i className="bi bi-cart-plus-fill"></i></button>
-                <button className='btn btn-warning d-inline-block'><i className="bi bi-star"></i></button>
-            </div>
-
-
-        </div>
-    )
-}
-
-export default Card
+export default Card;
